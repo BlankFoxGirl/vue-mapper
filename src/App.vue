@@ -4,6 +4,7 @@
       :debug="true"
       ApiKey="GOOGLE-API-KEY"
       id_override="MyCoolMap"
+      mode="Location"
     />
   </div>
 </template>

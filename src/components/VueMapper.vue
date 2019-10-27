@@ -1,6 +1,14 @@
 <template>
-    <div class="vue-mapper-container" v-bind:style="styleObject" v-if="GetMode === 'default'">
-      <div class="map-bind" :id="id"></div>
+    <div class="vue-mapper-container" v-bind:style="styleObject">
+      <div v-if="GetMode === 'default'" class="map-bind" :id="id"></div>
+      <div class="vue-mapper-location-container" v-bind:style="styleObject" v-if="GetMode === 'Location'">
+        <div class="inline-left">
+          <div class="map-bind" :id="id"></div>
+        </div>
+        <div class="inline-right">
+          Locations
+        </div>
+      </div>
     </div>
 </template>
 
@@ -99,7 +107,7 @@ export default {
     },
 
     GetMode() {
-      return 'default';
+      return (this.mode !== null) ? this.mode : 'default';
     },
   },
   mounted() {
@@ -156,6 +164,25 @@ div#app {
 div.vue-mapper-container {
   height: 100%;
   width: 100%;
+}
+
+div.vue-mapper-location-container {
+  width: 100%;
+  min-width: 300px;
+  height: 100%;
+}
+
+div.vue-mapper-location-container > div.inline-left {
+  display: inline-flex;
+  width: 70%;
+  height: 100%;
+}
+
+div.vue-mapper-location-container > div.inline-right {
+  display: inline-flex;
+  width: 30%;
+  height: 100%;
+  vertical-align: top;
 }
 
 div.map-bind {
