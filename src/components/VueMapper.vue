@@ -1,5 +1,5 @@
 <template>
-    <div class="vue-mapper-container" v-bind:style="styleObject">
+    <div class="vue-mapper-container" v-bind:style="styleObject" v-if="GetMode === 'default'">
       <div class="map-bind" :id="id"></div>
     </div>
 </template>
@@ -12,30 +12,37 @@ export default {
       type: Object,
       default: null,
     },
+
     ApiKey: {
       type: String,
       default: '',
     },
+
     MapSize: {
       type: Object,
       default: null,
     },
+
     title: {
       type: String,
       default: 'Hej!',
     },
+
     mode: {
       type: String,
       default: '',
     },
+
     googleOverride: {
       type: Array,
       defaunt: null,
     },
+
     debug: {
       type: Boolean,
       default: false,
     },
+
     id_override: {
       type: String,
       default: null,
@@ -44,40 +51,55 @@ export default {
   data() {
     return {
       infoWindow: null,
+
       map: null,
+
       googleOptions: {
         center: {
           lat: -33.863276,
           lng: 151.107977,
         },
+
         zoom: 11,
         mapTypeId: 'roadmap',
       },
+
       thread: null,
     };
   },
+
   computed: {
     id() {
       let result = '';
       const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       const charactersLength = characters.length;
+
       for ( var i = 0; i < length; i++ ) {
           result += characters.charAt(Math.floor(Math.random() * charactersLength));
       }
+
       return (this.id_override !== null) ? this.id_override : result;
     },
+
     width() {
       return '100%';
     },
+
     height() {
       return '100px';
     },
+
     styleObject() {
       console.log('width: ' + this.width + '; height: ' + this.height);
       return {width: this.width + 'px', height: this.height + 'px'};
     },
+
     FocusLocation() {
       return (this.Center !== null) ? this.Center : { lat: -33.863276, lng: 151.107977 };
+    },
+
+    GetMode() {
+      return 'default';
     },
   },
   mounted() {
@@ -106,31 +128,36 @@ export default {
               if (this.debug) {
                   console.log('Successfully lazy loaded google maps. Now we\'ll initiate the map!');
               }
+
               clearInterval(this.thread);
+
               if (this.debug) {
                   console.log(this.googleOptions);
               }
+
               if (this.FocusLocation !== null) {
                   this.googleOptions.center = this.FocusLocation;
               }
+
               this.map = new google.maps.Map(document.getElementById(this.id), this.googleOptions);
-              console.log(this.map);
               this.infoWindow = new google.maps.InfoWindow();
-              // this.mapMode();
           }
       }, 100);
-    }
-  }
-}
+    },
+  },
+};
 </script>
+
 <style>
 div#app {
   height: 80vh;
 }
+
 div.vue-mapper-container {
   height: 100%;
   width: 100%;
 }
+
 div.map-bind {
   height: 100%;
   width: 100%;

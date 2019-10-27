@@ -2,7 +2,7 @@
   <div id="app">
     <VueMapper
       :debug="true"
-      ApiKey="AIzaSyDn2aKHAOQbu-SxPTDOI2ZCkOPSF6ixt1Y"
+      ApiKey="GOOGLE-API-KEY"
       id_override="MyCoolMap"
     />
   </div>
